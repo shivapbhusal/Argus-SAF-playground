@@ -62,6 +62,13 @@ object FileResolver {
     val settings = DecompilerSettings(debugMode = false, forceDelete = true, strategy, reporter)
     val apk = yard.loadApk(fileUri, settings, collectInfo = true, resolveCallBack = true)
 
+    // Changes, 2017-11-10, Print the Dummy Main method
+
+    apk.model.getEnvMap.foreach{
+      case (x,(y,code))=>
+        println(x);println(y);println(code)
+    }
+
     /******************* Do Taint analysis *********************/
 
     val component = apk.model.getComponents.last // get any component you want to perform analysis
